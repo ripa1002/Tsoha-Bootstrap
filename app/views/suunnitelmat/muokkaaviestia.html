@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa viestiä</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Lähettäjä</label>
+      <input class="form-control" value="ZuckerMark" type="text">
+    </div>
+    <div class="form-group">
+      <label>Viestin julkaisuaika</label>
+      <input class="form-control" value="11.11.2011 klo. 04:10" type="text">
+    </div>
+    <div class="form-group">
+      <label>Ketju</label>
+      <input class="form-control" value="My new app" type="text">
+    </div>
+    <div class="form-group">
+      <label>Viesti</label>
+      <textarea class="form-control">You can modify this message.</textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna muutokset</button>
+    </div>
+  </form>
+{% endblock %}
