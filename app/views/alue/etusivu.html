@@ -12,12 +12,13 @@
     </thead>
 
     <tbody>
-        <!-- Listataan aihealueet tähän -->
+        {% for alue in alueet %}
         <tr>
-            <td><a href="#">React</a></td>
+            <td><a href="{{base_path}}/aiheet/{{alue.id}}">{{alue.name}}</a></td>
             <td>11.11.2017</td>
             <td>ZuckerMark</td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}

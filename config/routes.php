@@ -1,15 +1,19 @@
 <?php
 
 $routes->get('/', function() {
-    HelloWorldController::etusivu();
+    AlueKontrolleri::index();
+});
+
+$routes->get('/aiheet', function() {
+    AlueKontrolleri::index();
 });
 
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
-$routes->get('/aihe1', function() {
-    HelloWorldController::ketjut();
+$routes->get('/aiheet/:id', function($id) {
+    AlueKontrolleri::show($id);
 });
 
 $routes->get('/kirjaudu', function() {

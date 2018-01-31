@@ -9,7 +9,11 @@ class HelloWorldController extends BaseController {
     }
 
     public static function sandbox() {
-        View::make('helloworld.html');
+        //View::make('helloworld.html');
+        $eka = Alue::etsi(1);
+        $alueet = Alue::kaikki();
+        Kint::dump($eka);
+        Kint::dump($alueet);
     }
 
     public static function etusivu() {
