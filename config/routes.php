@@ -9,7 +9,15 @@ $routes->get('/aiheet', function() {
 });
 
 $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
+    AlueKontrolleri::ketjuja();
+});
+
+$routes->post('/hiekkalaatikko', function() {
+    AlueKontrolleri::varastoi();
+});
+
+$routes->get('/hiekkalaatikko/uusi', function() {
+    AlueKontrolleri::luo();
 });
 
 $routes->get('/aiheet/:id', function($id) {
@@ -17,14 +25,14 @@ $routes->get('/aiheet/:id', function($id) {
 });
 
 $routes->get('/kirjaudu', function() {
-  HelloWorldController::kirjaudu();
+    HelloWorldController::kirjaudu();
 });
 
 $routes->get('/rekisteroidy', function() {
-  HelloWorldController::rekisteroidy();
+    HelloWorldController::rekisteroidy();
 });
 
 //tämän polku tulee vielä muuttumaan
 $routes->get('/muokkaa', function() {
-  HelloWorldController::muokkaaviestia();
+    HelloWorldController::muokkaaviestia();
 });

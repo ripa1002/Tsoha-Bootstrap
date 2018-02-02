@@ -13,13 +13,14 @@
     </thead>
 
     <tbody>
-        <!-- Esimerkki ketjusta -->
+        {% for ketju in ketjut %}
         <tr>
-            <td><a href="#">My new app</a></td>
+            <td><a href="{{base_path}}/ketjut/{{ketju.id}}">{{ketju.name}}</a></td>
             <th>ZuckerMark</th>
             <td>11.12.2017</td>
             <td>Risto86</td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}
