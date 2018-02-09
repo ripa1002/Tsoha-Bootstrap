@@ -8,19 +8,28 @@
             <th>Ketjun nimi</th>
             <th>Aloittaja</th>
             <th>Viimeisin viesti</th>
-            <th>Lähettäjä</th>
+            <th>Poistonappi</th>
         </tr>
     </thead>
 
     <tbody>
         {% for ketju in ketjut %}
         <tr>
-            <td><a href="{{base_path}}/ketjut/{{ketju.id}}">{{ketju.name}}</a></td>
-            <th>ZuckerMark</th>
+            <td><a href="{{base_path}}/aiheet/{{ketju.alue_id}}/{{ketju.id}}">{{ketju.name}}</a></td>
+            <th>{{ketju.kayttaja_id}}</th>
             <td>11.12.2017</td>
-            <td>Risto86</td>
+            <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
+                    <button type="submit" class="btn btn-danger">Poista</button>
+                </form></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<div class="alert alert-success">
+    {{message}}
+</div>
+
+<a href="{{base_path}}/aiheet/{{oikee}}/uusi">Lisää ketju</a>
+
 {% endblock %}

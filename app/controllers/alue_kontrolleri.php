@@ -7,28 +7,80 @@ class AlueKontrolleri extends BaseController {
         View::make('alue/etusivu.html', array('alueet' => $alueet));
     }
 
-    public static function ketjuja() {
+    public static function kaikkiKetjut() {
         $ketjut = Ketju::kaikki();
         View::make('ketju/ketjut.html', array('ketjut' => $ketjut));
     }
-    
-    public static function luo() {
-        View::make('ketju/uusiketju.html');
+
+    public static function luo($id) {
+        $alue = Alue::etsi($id);
+        View::make('ketju/uusiketju.html', array('oikee' => $alue->id));
     }
 
-    public static function varastoi() {
+    public static function varastoi($id) {
+        $alue = Alue::etsi($id);
         // POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
         $params = $_POST;
         // Alustetaan uusi Game-luokan olion käyttäjän syöttämillä arvoilla
-        $ketju = new Ketju(array(
-            'name' => $params['name']
-        ));
-
+        $attributes = array(
+            'name' => $params['name'],
+            'alue_id' => $id
+        );
+        $ketju = new Ketju($attributes);
+        $errors = $ketju->errors();
         // Kutsutaan alustamamme olion save metodia, joka tallentaa olion tietokantaan
-        $ketju->save();
+
+        if (count($errors) == 0) {
+            $ketju->save();
+            // Ohjataan käyttäjä lisäyksen jälkeen pelin esittelysivulle
+            Redirect::to('/aiheet/' . $ketju->alue_id, array('message' => 'Ketju lisätty!'));
+        } else {
+            View::make('ketju/uusiketju.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $alue->id));
+        }
+    }
+
+    public static function naytaKetjutAlueittain($id) {
+        $ketjut = Ketju::etsiAlueittain($id);
+        $alue = Alue::etsi($id);
+        View::make('ketju/ketjut.html', array('ketjut' => $ketjut, 'oikee' => $alue->id));
+    }
+
+    public static function edit($id) {
+        $ketju = Ketju::etsi($id);
+        View::make('suunnitelmat/muokkaaviestia.html', array('attributes' => $ketju));
+    }
+
+    // Pelin muokkaaminen (lomakkeen käsittely)
+    public static function update($id) {
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id,
+            'name' => $params['name'],
+            'alue_id' => $params['alue_id']
+        );
+
+        // Alustetaan Game-olio käyttäjän syöttämillä tiedoilla
+        $ketju = new Game($attributes);
+        $errors = $ketju->errors();
+
+        if (count($errors) > 0) {
+            View::make('suunnitelmat/muokkaaviestia.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            // Kutsutaan alustetun olion update-metodia, joka päivittää pelin tiedot tietokannassa
+            $ketju->update();
+
+            Redirect::to('/aiheet/' . $ketju->alue_id, array('message' => 'Ketjua on muokattu onnistuneesti!'));
+        }
+    }
+
+    public static function destroy($id) {
         
-        // Ohjataan käyttäjä lisäyksen jälkeen pelin esittelysivulle
-        Redirect::to('/hiekkalaatikko');
+        $ketju = new Ketju(array('id' => $id));
+        $luku = Ketju::etsi($id);
+        $ketju->destroy();
+
+        Redirect::to('/aiheet/' . $luku->alue_id, array('message' => 'Ketju on poistettu onnistuneesti!'));
     }
 
 }

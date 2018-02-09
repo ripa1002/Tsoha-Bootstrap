@@ -8,20 +8,16 @@ $routes->get('/aiheet', function() {
     AlueKontrolleri::index();
 });
 
-$routes->get('/hiekkalaatikko', function() {
-    AlueKontrolleri::ketjuja();
+$routes->post('/aiheet/:id', function($id) {
+    AlueKontrolleri::varastoi($id);
 });
 
-$routes->post('/hiekkalaatikko', function() {
-    AlueKontrolleri::varastoi();
-});
-
-$routes->get('/hiekkalaatikko/uusi', function() {
-    AlueKontrolleri::luo();
+$routes->get('/aiheet/:id/uusi', function($id) {
+    AlueKontrolleri::luo($id);
 });
 
 $routes->get('/aiheet/:id', function($id) {
-    AlueKontrolleri::show($id);
+    AlueKontrolleri::naytaKetjutAlueittain($id);
 });
 
 $routes->get('/kirjaudu', function() {
@@ -32,7 +28,20 @@ $routes->get('/rekisteroidy', function() {
     HelloWorldController::rekisteroidy();
 });
 
-//tämän polku tulee vielä muuttumaan
-$routes->get('/muokkaa', function() {
-    HelloWorldController::muokkaaviestia();
+$routes->get('aiheet/:id/muokkaa', function($id) {
+    AlueKontrolleri::edit($id);
 });
+
+$routes->post('/aiheet/:id/edit', function($id){
+    AlueKontrolleri::update($id);
+});
+
+$routes->post('/aiheet/:id/destroy', function($id){
+  AlueKontrolleri::destroy($id);
+});
+
+/*
+$routes->get('/hiekkalaatikko', function() {
+    AlueKontrolleri::sandbox();
+});
+*/

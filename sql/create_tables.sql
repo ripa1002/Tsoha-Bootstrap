@@ -1,7 +1,8 @@
 CREATE TABLE Kayttaja (
     id SERIAL PRIMARY KEY,
     name varchar(30),
-    password varchar(50)
+    password varchar(50),
+    admin boolean DEFAULT false
 );
 
 CREATE TABLE Alue (

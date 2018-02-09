@@ -10,10 +10,15 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         //View::make('helloworld.html');
+        $testi = new Ketju(array('name' => '', 'kayttaja_id' => 10, 'alue_id' => 10));
+        $errors = $testi->errors();
+        Kint::dump($errors);
+        /*
         $eka = Alue::etsi(1);
         $alueet = Alue::kaikki();
         Kint::dump($eka);
         Kint::dump($alueet);
+         */
     }
 
     public static function etusivu() {
