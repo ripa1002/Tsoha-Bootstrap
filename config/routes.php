@@ -28,12 +28,12 @@ $routes->get('/rekisteroidy', function() {
     HelloWorldController::rekisteroidy();
 });
 
-$routes->get('aiheet/:id/muokkaa', function($id) {
-    AlueKontrolleri::edit($id);
+$routes->post('/aiheet/:ketju_id/muokkaa', function($ketju_id){
+    AlueKontrolleri::update($ketju_id);
 });
 
-$routes->post('/aiheet/:id/edit', function($id){
-    AlueKontrolleri::update($id);
+$routes->get('/aiheet/:ketju_id/muokkaa', function($ketju_id) {
+    AlueKontrolleri::edit($ketju_id);
 });
 
 $routes->post('/aiheet/:id/destroy', function($id){

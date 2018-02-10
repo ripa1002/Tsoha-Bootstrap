@@ -9,6 +9,7 @@
             <th>Aloittaja</th>
             <th>Viimeisin viesti</th>
             <th>Poistonappi</th>
+            <th>Muokkaus</th>
         </tr>
     </thead>
 
@@ -20,6 +21,10 @@
             <td>11.12.2017</td>
             <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
+                </form>
+            </td>
+            <td><form method="get" action="{{base_path}}/aiheet/{{ketju.id}}/muokkaa" style="display: inline-block;">
+                    <button type="submit" class="btn btn-primary">Muokkaa</button>
                 </form></td>
         </tr>
         {% endfor %}

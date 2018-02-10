@@ -93,11 +93,12 @@ class Ketju extends BaseModel {
         // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
         $kysely = DB::connection()->prepare('UPDATE Ketju SET name = :name WHERE id = :id');
         // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
-        $kysely->execute(array('name' => $this->name, 'alue_id' => $this->alue_id));
+        $kysely->execute(array('id' => $this->id, 'name' => $this->name));
         // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
+        /*
         $rivi = $kysely->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
-        $this->id = $rivi['id'];
+        $this->id = $rivi['id'];*/
     }
     
     public function destroy() {

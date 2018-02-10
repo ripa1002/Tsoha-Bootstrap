@@ -21,7 +21,7 @@ class AlueKontrolleri extends BaseController {
         $alue = Alue::etsi($id);
         // POST-pyynnön muuttujat sijaitsevat $_POST nimisessä assosiaatiolistassa
         $params = $_POST;
-        // Alustetaan uusi Game-luokan olion käyttäjän syöttämillä arvoilla
+    
         $attributes = array(
             'name' => $params['name'],
             'alue_id' => $id
@@ -32,7 +32,6 @@ class AlueKontrolleri extends BaseController {
 
         if (count($errors) == 0) {
             $ketju->save();
-            // Ohjataan käyttäjä lisäyksen jälkeen pelin esittelysivulle
             Redirect::to('/aiheet/' . $ketju->alue_id, array('message' => 'Ketju lisätty!'));
         } else {
             View::make('ketju/uusiketju.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $alue->id));
@@ -47,40 +46,36 @@ class AlueKontrolleri extends BaseController {
 
     public static function edit($id) {
         $ketju = Ketju::etsi($id);
-        View::make('suunnitelmat/muokkaaviestia.html', array('attributes' => $ketju));
+        View::make('suunnitelmat/muokkaaviestia.html', array('attributes' => $ketju, 'oikee' => $ketju->id));
     }
 
-    // Pelin muokkaaminen (lomakkeen käsittely)
-    public static function update($id) {
+    public static function update($ketju_id) {
         $params = $_POST;
-
+        $oikee = Ketju::etsi($ketju_id);
         $attributes = array(
-            'id' => $id,
-            'name' => $params['name'],
-            'alue_id' => $params['alue_id']
+            'id' => $ketju_id,
+            'name' => $params['name']
+            //'alue_id' => $alue_id
         );
 
-        // Alustetaan Game-olio käyttäjän syöttämillä tiedoilla
-        $ketju = new Game($attributes);
+        $ketju = new Ketju($attributes);
         $errors = $ketju->errors();
 
         if (count($errors) > 0) {
-            View::make('suunnitelmat/muokkaaviestia.html', array('errors' => $errors, 'attributes' => $attributes));
+            View::make('suunnitelmat/muokkaaviestia.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $ketju->id));
         } else {
-            // Kutsutaan alustetun olion update-metodia, joka päivittää pelin tiedot tietokannassa
             $ketju->update();
-
-            Redirect::to('/aiheet/' . $ketju->alue_id, array('message' => 'Ketjua on muokattu onnistuneesti!'));
+            Redirect::to('/aiheet/' . $oikee->alue_id, array('message' => 'Ketjua on muokattu onnistuneesti!'));
         }
     }
 
     public static function destroy($id) {
         
         $ketju = new Ketju(array('id' => $id));
-        $luku = Ketju::etsi($id);
+        $alue = Ketju::etsi($id);
         $ketju->destroy();
 
-        Redirect::to('/aiheet/' . $luku->alue_id, array('message' => 'Ketju on poistettu onnistuneesti!'));
+        Redirect::to('/aiheet/' . $alue->alue_id, array('message' => 'Ketju on poistettu onnistuneesti!'));
     }
 
 }
