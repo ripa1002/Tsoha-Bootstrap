@@ -43,6 +43,11 @@ class AlueKontrolleri extends BaseController {
         $alue = Alue::etsi($id);
         View::make('ketju/ketjut.html', array('ketjut' => $ketjut, 'oikee' => $alue->id));
     }
+    
+    public static function naytaKetjunSisalto($ketju_id) {
+        $ketju = Ketju::etsi($ketju_id);
+        View::make('ketju/sisalto.html', array('ketju' => $ketju, 'oikee' => $ketju->id));
+    }
 
     public static function edit($id) {
         $ketju = Ketju::etsi($id);

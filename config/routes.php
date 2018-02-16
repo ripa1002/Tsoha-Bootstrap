@@ -29,6 +29,10 @@ $routes->get('/aiheet/:id', function($id) {
     AlueKontrolleri::naytaKetjutAlueittain($id);
 });
 
+$routes->get('/aiheet/ketju/:ketju_id', function($ketju_id) {
+    AlueKontrolleri::naytaKetjunSisalto($ketju_id);
+});
+
 $routes->get('/rekisteroidy', function() {
     HelloWorldController::rekisteroidy();
 });

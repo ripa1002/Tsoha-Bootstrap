@@ -21,12 +21,10 @@ CREATE TABLE Ketju (
 
 CREATE TABLE Viesti (
     id SERIAL PRIMARY KEY,
-    alue_id integer NOT NULL,
     ketju_id integer NOT NULL,    
     kayttaja_id integer NOT NULL,
     sisalto varchar(2000),
-    aika varchar(20),
+    aika DATE,
     FOREIGN KEY (ketju_id) REFERENCES Ketju(id),
-    FOREIGN KEY (alue_id) REFERENCES Alue(id),
     FOREIGN KEY (kayttaja_id) REFERENCES Kayttaja(id)
 );

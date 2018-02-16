@@ -16,7 +16,7 @@
     <tbody>
         {% for ketju in ketjut %}
         <tr>
-            <td><a href="{{base_path}}/aiheet/{{ketju.alue_id}}/{{ketju.id}}">{{ketju.name}}</a></td>
+            <td><a href="{{base_path}}/aiheet/ketju/{{ketju.id}}">{{ketju.name}}</a></td>
             <th>{{ketju.kayttaja_id}}</th>
             <td>11.12.2017</td>
             <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
