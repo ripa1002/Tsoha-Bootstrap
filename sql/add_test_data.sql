@@ -1,5 +1,6 @@
 INSERT INTO Kayttaja (name, password) VALUES ('Risto', 'Risto123');
 INSERT INTO Kayttaja (name, password) VALUES ('Esa', 'Esa123');
+INSERT INTO Kayttaja (name, password) VALUES ('Ohjaaja', 'ohjaaja1');
 
 INSERT INTO Alue (name) VALUES ('Test1');
 INSERT INTO Alue (name) VALUES ('Test2');
