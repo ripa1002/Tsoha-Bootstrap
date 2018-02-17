@@ -6,13 +6,31 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Viestii</th>
-            <th>Aloittaja</th>
-            <th>Viimeisin viesti</th>
-            <th>Poistonappi</th>
+            <td>Viesti</td>
+            <td>Lähettäjä</td>
+            <td>pvm</td>
             <th>Muokkaus</th>
         </tr>
     </thead>
-</table>>
 
+    <tbody>
+        {% for viesti in viestit %}
+        <tr>
+            <th>{{viesti.sisalto}}</th>
+            <th>{{ketju.kayttaja_id}}</th>
+            <td>11.12.2017</td>
+            <!--
+            <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
+                    <button type="submit" class="btn btn-danger">Poista</button>
+                </form>
+            </td>
+            <td><form method="get" action="{{base_path}}/aiheet/{{ketju.id}}/muokkaa" style="display: inline-block;">
+                    <button type="submit" class="btn btn-primary">Muokkaa</button>
+                </form></td>-->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{base_path}}/aiheet/ketju/{{oikee}}/uusi">Lisää viesti</a>
 {% endblock %}

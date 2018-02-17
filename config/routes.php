@@ -29,6 +29,14 @@ $routes->get('/aiheet/:id', function($id) {
     AlueKontrolleri::naytaKetjutAlueittain($id);
 });
 
+$routes->post('/aiheet/ketju/:id', function($id) {
+    AlueKontrolleri::varastoiViesti($id);
+});
+
+$routes->get('/aiheet/ketju/:id/uusi', function($id) {
+    AlueKontrolleri::luoViesti($id);
+});
+
 $routes->get('/aiheet/ketju/:ketju_id', function($ketju_id) {
     AlueKontrolleri::naytaKetjunSisalto($ketju_id);
 });

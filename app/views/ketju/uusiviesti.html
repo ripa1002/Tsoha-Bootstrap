@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Lisää uusi ketju</h1>
-
+<h1>Lisää uusi viesti tähän ketjuun</h1>
+<!--
 {% if errors %}
 <div class="alert alert-danger">
     <ul>
@@ -11,14 +11,11 @@
     </ul>
 </div>
 {% endif %}
+-->
+<form method="post" action="{{base_path}}/aiheet/ketju/{{oikee}}">
 
-<form method="post" action="{{base_path}}/aiheet/{{oikee}}">
     <div class="form-group">
-        <label>Ketjun Nimi</label>
-        <input name="name" class="form-control" type="text">
-    </div>
-    <div class="form-group">
-        <label>Viesti</label>
+        <label>Viestisi</label>
         <input name="sisalto" class="form-control" type="text">
     </div>
 
