@@ -33,6 +33,7 @@
         {% endfor %}
     </tbody>
 </table>
-
+{% if user_logged_in %}
 <a href="{{base_path}}/aiheet/ketju/{{oikee}}/uusi">Lisää viesti</a>
+{% endif %}
 {% endblock %}
