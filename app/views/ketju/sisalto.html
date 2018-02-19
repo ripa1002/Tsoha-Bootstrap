@@ -9,6 +9,7 @@
             <td>Viesti</td>
             <td>Lähettäjä</td>
             <td>pvm</td>
+            <th>Poisto</th>
             <th>Muokkaus</th>
         </tr>
     </thead>
@@ -17,15 +18,16 @@
         {% for viesti in viestit %}
         <tr>
             <th>{{viesti.sisalto}}</th>
-            <th>{{ketju.kayttaja_id}}</th>
+            <th>{{viesti.kayttaja_id}}</th>
             <td>11.12.2017</td>
-            <!--
+           <!-- {% if user_logged_in.id == viesti.kayttaja_id %}
             <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
                 </form>
             </td>
             <td><form method="get" action="{{base_path}}/aiheet/{{ketju.id}}/muokkaa" style="display: inline-block;">
                     <button type="submit" class="btn btn-primary">Muokkaa</button>
+            {% endif %}
                 </form></td>-->
         </tr>
         {% endfor %}

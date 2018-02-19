@@ -39,7 +39,7 @@ class AlueKontrolleri extends BaseController {
             $ketju->save();
             $viestinAttributes = array(
                 'ketju_id' => $ketju->id,
-                'kayttaja_id' => '2',
+                'kayttaja_id' => BaseController::get_user_logged_in()->id,
                 'sisalto' => $params['sisalto'], 'aika' => date_default_timezone_get());
 
             $viesti = new Viesti($viestinAttributes);
@@ -55,7 +55,7 @@ class AlueKontrolleri extends BaseController {
 
         $attributes = array(
             'ketju_id' => $id,
-            'kayttaja_id' => '2',
+            'kayttaja_id' => BaseController::get_user_logged_in()->id,
             'sisalto' => $params['sisalto'], 'aika' => date_default_timezone_get()
         );
         $viesti = new Viesti($attributes);

@@ -50,9 +50,9 @@ class Viesti extends BaseModel {
     
     public function save() {
         // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
-        $kysely = DB::connection()->prepare('INSERT INTO Viesti (ketju_id, kayttaja_id, sisalto, aika) VALUES (:ketju_id, 2, :sisalto, :aika) RETURNING id');
+        $kysely = DB::connection()->prepare('INSERT INTO Viesti (ketju_id, kayttaja_id, sisalto, aika) VALUES (:ketju_id, :kayttaja, :sisalto, :aika) RETURNING id');
         // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
-        $kysely->execute(array('sisalto' => $this->sisalto, 'ketju_id' => $this->ketju_id, 'aika' => $this->aika));
+        $kysely->execute(array('sisalto' => $this->sisalto, 'kayttaja' => BaseController::get_user_logged_in()->id ,'ketju_id' => $this->ketju_id, 'aika' => $this->aika));
         // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $rivi = $kysely->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
