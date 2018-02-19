@@ -12,9 +12,14 @@ $routes->get('/login', function() {
     // Kirjautumislomakkeen esittäminen
     Kayttajakontrolleri::login();
 });
+
 $routes->post('/login', function() {
     // Kirjautumisen käsittely
     Kayttajakontrolleri::handle_login();
+});
+
+$routes->post('/logout', function() {
+    Kayttajakontrolleri::logout();
 });
 
 $routes->post('/aiheet/:id', function($id) {
