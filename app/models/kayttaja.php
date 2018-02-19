@@ -39,6 +39,22 @@ class Kayttaja extends BaseModel {
         }
         return null;
     }
+    
+    public static function kaikki() {
+        $kysely = DB::connection()->prepare('SELECT * FROM Kayttaja');
+        $kysely->execute();
+        $rivit = $kysely->fetchAll();
+        $kayttajat = array();
+        
+        foreach ($rivit as $rivi) {
+            $kayttajat[] = new Kayttaja(array(
+                'id' => $rivi['id'],
+                'name' => $rivi['name'],
+                'password' => $rivi['password']
+            ));
+        }
+        return $kayttajat;
+    }
 
 }
 

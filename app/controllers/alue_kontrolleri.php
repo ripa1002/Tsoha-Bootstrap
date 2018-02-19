@@ -66,7 +66,8 @@ class AlueKontrolleri extends BaseController {
     public static function naytaKetjutAlueittain($id) {
         $ketjut = Ketju::etsiAlueittain($id);
         $alue = Alue::etsi($id);
-        View::make('ketju/ketjut.html', array('ketjut' => $ketjut, 'oikee' => $alue->id));
+        $kayttajat = Kayttaja::kaikki();
+        View::make('ketju/ketjut.html', array('ketjut' => $ketjut, 'oikee' => $alue->id, 'alueenNimi' => $alue->name, 'kayttajat' => $kayttajat));
     }
 
     public static function naytaKetjunSisalto($ketju_id) {
