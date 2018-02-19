@@ -19,12 +19,14 @@
             <td><a href="{{base_path}}/aiheet/ketju/{{ketju.id}}">{{ketju.name}}</a></td>
             <th>{{ketju.kayttaja_id}}</th>
             <td>11.12.2017</td>
+            {% if user_logged_in.id == ketju.kayttaja_id %}
             <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
                 </form>
             </td>
             <td><form method="get" action="{{base_path}}/aiheet/{{ketju.id}}/muokkaa" style="display: inline-block;">
                     <button type="submit" class="btn btn-primary">Muokkaa</button>
+            {% endif %}
                 </form></td>
         </tr>
         {% endfor %}

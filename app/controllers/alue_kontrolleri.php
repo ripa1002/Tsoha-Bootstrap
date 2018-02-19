@@ -29,7 +29,8 @@ class AlueKontrolleri extends BaseController {
 
         $attributes = array(
             'name' => $params['name'],
-            'alue_id' => $id
+            'alue_id' => $id,
+            'kayttaja_id' => BaseController::get_user_logged_in()->id
         );
         $ketju = new Ketju($attributes);
         $errors = $ketju->errors();

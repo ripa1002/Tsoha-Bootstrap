@@ -68,9 +68,9 @@ class Ketju extends BaseModel {
 
     public function save() {
         // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
-        $kysely = DB::connection()->prepare('INSERT INTO Ketju (alue_id, kayttaja_id, name) VALUES (:alue_id, 2, :name) RETURNING id');
+        $kysely = DB::connection()->prepare('INSERT INTO Ketju (alue_id, kayttaja_id, name) VALUES (:alue_id, :kayttaja, :name) RETURNING id');
         // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
-        $kysely->execute(array('name' => $this->name, 'alue_id' => $this->alue_id));
+        $kysely->execute(array('name' => $this->name, 'kayttaja' => BaseController::get_user_logged_in()->id ,'alue_id' => $this->alue_id));
         // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $rivi = $kysely->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
