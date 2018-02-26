@@ -24,7 +24,7 @@ CREATE TABLE Viesti (
     ketju_id integer NOT NULL,    
     kayttaja_id integer NOT NULL,
     sisalto varchar(2000),
-    aika varchar(20),
+    aika timestamp,
     FOREIGN KEY (ketju_id) REFERENCES Ketju(id),
     FOREIGN KEY (kayttaja_id) REFERENCES Kayttaja(id)
 );

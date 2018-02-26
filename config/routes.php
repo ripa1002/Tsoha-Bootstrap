@@ -58,6 +58,9 @@ $routes->get('/aiheet/:ketju_id/muokkaa', function($ketju_id) {
     AlueKontrolleri::edit($ketju_id);
 });
 
+$routes->post('/aiheet/ketju/:viestiId/destroy', function($viestiId) {
+    AlueKontrolleri::destroyViesti($viestiId);
+});
 $routes->post('/aiheet/:id/destroy', function($id) {
     AlueKontrolleri::destroy($id);
 });

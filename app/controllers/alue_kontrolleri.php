@@ -40,7 +40,7 @@ class AlueKontrolleri extends BaseController {
             $viestinAttributes = array(
                 'ketju_id' => $ketju->id,
                 'kayttaja_id' => BaseController::get_user_logged_in()->id,
-                'sisalto' => $params['sisalto'], 'aika' => date_default_timezone_get());
+                'sisalto' => $params['sisalto'], 'aika' => date(DATE_RSS));
 
             $viesti = new Viesti($viestinAttributes);
             $viesti->save();
@@ -56,7 +56,7 @@ class AlueKontrolleri extends BaseController {
         $attributes = array(
             'ketju_id' => $id,
             'kayttaja_id' => BaseController::get_user_logged_in()->id,
-            'sisalto' => $params['sisalto'], 'aika' => date_default_timezone_get()
+            'sisalto' => $params['sisalto'], 'aika' => date(DATE_RSS)
         );
         $viesti = new Viesti($attributes);
         $viesti->save();
@@ -73,7 +73,8 @@ class AlueKontrolleri extends BaseController {
     public static function naytaKetjunSisalto($ketju_id) {
         $ketju = Ketju::etsi($ketju_id);
         $viestit = Viesti::etsiKetjuittain($ketju_id);
-        View::make('ketju/sisalto.html', array('ketju' => $ketju, 'viestit' => $viestit, 'oikee' => $ketju->id));
+        $kayttajat = Kayttaja::kaikki();
+        View::make('ketju/sisalto.html', array('ketju' => $ketju, 'viestit' => $viestit, 'oikee' => $ketju->id, 'kayttajat' => $kayttajat));
     }
 
     public static function edit($id) {
@@ -100,7 +101,14 @@ class AlueKontrolleri extends BaseController {
             Redirect::to('/aiheet/' . $oikee->alue_id, array('message' => 'Ketjua on muokattu onnistuneesti!'));
         }
     }
-
+    
+    public static function destroyViesti($viestiId) {
+        $oikee = Viesti::etsi($viestiId);
+        $viesti = new Viesti(array('id' => $viestiId));
+        $viesti->destroyOne();
+        Redirect::to('/aiheet/ketju/' . $oikee->ketju_id, array('message' => 'Viesti on poistettu onnistuneesti!'));
+    }
+    
     public static function destroy($id) {
 
         $ketju = new Ketju(array('id' => $id));

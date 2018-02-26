@@ -6,8 +6,8 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <td>Viesti</td>
             <td>Lähettäjä</td>
+            <td>Viesti</td>
             <td>pvm</td>
             <th>Poisto</th>
             <th>Muokkaus</th>
@@ -17,18 +17,22 @@
     <tbody>
         {% for viesti in viestit %}
         <tr>
+            {% for kayttaja in kayttajat %}
+                {% if kayttaja.id == viesti.kayttaja_id %}
+                    <th>{{kayttaja.name}}</th>
+                {% endif %}
+            {% endfor %}
             <th>{{viesti.sisalto}}</th>
-            <th>{{viesti.kayttaja_id}}</th>
-            <td>11.12.2017</td>
-           <!-- {% if user_logged_in.id == viesti.kayttaja_id %}
-            <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
+            <td>{{viesti.aika}}</td>
+            {% if user_logged_in.id == viesti.kayttaja_id %}
+            <td><form method="post" action="{{base_path}}/aiheet/ketju/{{viesti.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>
                 </form>
             </td>
             <td><form method="get" action="{{base_path}}/aiheet/{{ketju.id}}/muokkaa" style="display: inline-block;">
                     <button type="submit" class="btn btn-primary">Muokkaa</button>
             {% endif %}
-                </form></td>-->
+                </form></td>
         </tr>
         {% endfor %}
     </tbody>

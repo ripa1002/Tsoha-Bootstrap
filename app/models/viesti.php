@@ -15,7 +15,7 @@ class Viesti extends BaseModel {
         $rivi = $kysely->fetch();
 
         if ($rivi) {
-            $viesti = new Ketju(array(
+            $viesti = new Viesti(array(
                 'id' => $rivi['id'],
                 'ketju_id' => $rivi['ketju_id'],
                 'kayttaja_id' => $rivi['kayttaja_id'],
@@ -57,6 +57,11 @@ class Viesti extends BaseModel {
         $rivi = $kysely->fetch();
         // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->id = $rivi['id'];
+    }
+    
+    public function destroyOne() {
+        $kysely = DB::connection()->prepare('DELETE FROM Viesti WHERE id=:id');
+        $kysely->execute(array('id' => $this->id));
     }
     
     public function destroy() {
