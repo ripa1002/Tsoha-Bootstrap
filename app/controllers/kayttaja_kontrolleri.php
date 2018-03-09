@@ -3,7 +3,7 @@
 class Kayttajakontrolleri extends BaseController {
 
     public static function login() {
-        View::make('suunnitelmat/kirjaudu.html');
+        View::make('kayttaja/kirjaudu.html');
     }
 
     public static function logout() {
@@ -12,7 +12,7 @@ class Kayttajakontrolleri extends BaseController {
     }
 
     public static function register() {
-        View::make('suunnitelmat/rekisteroidy.html');
+        View::make('kayttaja/rekisteroidy.html');
     }
 
     public static function create_user() {
@@ -23,16 +23,14 @@ class Kayttajakontrolleri extends BaseController {
             'password' => $params['password']
         );
         if ($params['password'] != $params['password_confirm']) {
-            View::make('suunnitelmat/rekisteroidy.html', array('message' => 'Salasanan pitää täsmätä vahvistuksen kanssa!'));
+            View::make('kayttaja/rekisteroidy.html', array('message' => 'Salasanan pitää täsmätä vahvistuksen kanssa!'));
+        } else if (strlen($params['password']) < 4) {
+            View::make('kayttaja/rekisteroidy.html', array('message' => 'Salasanan pitää olla vähintään 4 merkkiä pitkä!'));
         } else {
         $kayttaja = new Kayttaja($attributes);
-        //$errors = $kayttaja->errors();
-        //if (count($errors) == 0) {
+
         $kayttaja->save();
-        Redirect::to('/', array('message' => 'Uusi käyttäjä luotu onnistuneesti! Voit nyt kirjautua sisään antamillasi tiedoilla.'));
-        /* } else {
-          View::make('suunnitelmat/rekisteroidy.html', array('errors' => $errors, 'attributes' => $attributes));
-          } */
+        Redirect::to('/', array('message' => 'Uusi käyttäjä luotu onnistuneesti! Voit nyt kirjautua sisään antamillasi tiedoilla.'));     
         }
     }
 
@@ -42,7 +40,7 @@ class Kayttajakontrolleri extends BaseController {
         $kayttaja = Kayttaja::authenticate($params['name'], $params['password']);
 
         if (!$kayttaja) {
-            View::make('suunnitelmat/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'name' => $params['name']));
+            View::make('kayttaja/kirjaudu.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'name' => $params['name']));
         } else {
             $_SESSION['kayttaja'] = $kayttaja->id;
 

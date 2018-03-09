@@ -36,13 +36,9 @@ class Kayttaja extends BaseModel {
     }
     
     public function save() {
-        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
         $kysely = DB::connection()->prepare('INSERT INTO Kayttaja (name, password) VALUES (:name, :password) RETURNING id');
-        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
         $kysely->execute(array('name' => $this->name, 'password' => $this->password));
-        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $rivi = $kysely->fetch();
-        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->id = $rivi['id'];
     }
     
@@ -80,9 +76,4 @@ class Kayttaja extends BaseModel {
 
 }
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

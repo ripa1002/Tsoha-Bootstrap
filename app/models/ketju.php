@@ -10,11 +10,9 @@ class Ketju extends BaseModel {
     }
 
     public static function kaikki() {
-        // Alustetaan kysely tietokantayhteydellämme
         $kysely = DB::connection()->prepare('SELECT * FROM Ketju');
-        // Suoritetaan kysely
         $kysely->execute();
-        // Haetaan kyselyn tuottamat rivit
+
         $rivit = $kysely->fetchAll();
         $ketjut = array();
 
@@ -47,11 +45,9 @@ class Ketju extends BaseModel {
     }
     
     public static function etsiAlueittain($alue_id) {
-        // Alustetaan kysely tietokantayhteydellämme
         $kysely = DB::connection()->prepare('SELECT * FROM Ketju WHERE alue_id = :alue_id');
-        // Suoritetaan kysely
         $kysely->execute(array('alue_id' => $alue_id));
-        // Haetaan kyselyn tuottamat rivit
+
         $rivit = $kysely->fetchAll();
         $ketjut = array();
 
@@ -67,17 +63,12 @@ class Ketju extends BaseModel {
     }
 
     public function save() {
-        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
         $kysely = DB::connection()->prepare('INSERT INTO Ketju (alue_id, kayttaja_id, name) VALUES (:alue_id, :kayttaja, :name) RETURNING id');
-        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
         $kysely->execute(array('name' => $this->name, 'kayttaja' => BaseController::get_user_logged_in()->id ,'alue_id' => $this->alue_id));
-        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
         $rivi = $kysely->fetch();
-        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
         $this->id = $rivi['id'];
     }
 
-    // Huomaathan, että validate_name funktio EI ole staattinen!
     public function validate_name() {
         $errors = array();
         if ($this->name == '' || $this->name == null) {
@@ -90,15 +81,9 @@ class Ketju extends BaseModel {
     }
     
     public function update() {
-        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
         $kysely = DB::connection()->prepare('UPDATE Ketju SET name = :name WHERE id = :id');
-        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
         $kysely->execute(array('id' => $this->id, 'name' => $this->name));
-        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
-        /*
-        $rivi = $kysely->fetch();
-        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
-        $this->id = $rivi['id'];*/
+
     }
     
     public function destroy() {
@@ -108,9 +93,4 @@ class Ketju extends BaseModel {
     
 }
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 

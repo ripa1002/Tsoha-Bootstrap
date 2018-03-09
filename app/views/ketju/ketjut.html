@@ -11,7 +11,6 @@
         <tr>
             <th>Ketjun nimi</th>
             <th>Aloittaja</th>
-            <th>Viimeisin viesti</th>
             <th>Poistonappi</th>
             <th>Muokkaus</th>
         </tr>
@@ -26,7 +25,6 @@
             <th>{{kayttaja.name}}</th>
             {% endif %}
             {% endfor %}
-            <td>11.12.2017</td>
             {% if user_logged_in.id == ketju.kayttaja_id %}
             <td><form method="post" action="{{base_path}}/aiheet/{{ketju.id}}/destroy" style="display: inline-block;">
                     <button type="submit" class="btn btn-danger">Poista</button>

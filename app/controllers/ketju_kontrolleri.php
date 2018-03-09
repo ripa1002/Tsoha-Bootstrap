@@ -55,7 +55,7 @@ class KetjuKontrolleri extends BaseController {
 
     public static function edit($id) {
         $ketju = Ketju::etsi($id);
-        View::make('suunnitelmat/muokkaaviestia.html', array('attributes' => $ketju, 'oikee' => $ketju->id));
+        View::make('ketju/muokkaaketjua.html', array('attributes' => $ketju, 'oikee' => $ketju->id));
     }
 
     public static function update($ketju_id) {
@@ -64,14 +64,13 @@ class KetjuKontrolleri extends BaseController {
         $attributes = array(
             'id' => $ketju_id,
             'name' => $params['name']
-                //'alue_id' => $alue_id
         );
 
         $ketju = new Ketju($attributes);
         $errors = $ketju->errors();
 
         if (count($errors) > 0) {
-            View::make('suunnitelmat/muokkaaviestia.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $ketju->id));
+            View::make('ketju/muokkaaketjua.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $ketju->id));
         } else {
             $ketju->update();
             Redirect::to('/aiheet/' . $oikee->alue_id, array('message' => 'Ketjua on muokattu onnistuneesti!'));

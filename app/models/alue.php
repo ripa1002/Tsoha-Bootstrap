@@ -9,11 +9,9 @@ class Alue extends BaseModel {
     }
 
     public static function kaikki() {
-        // Alustetaan kysely tietokantayhteydellämme
         $kysely = DB::connection()->prepare('SELECT * FROM Alue');
-        // Suoritetaan kysely
         $kysely->execute();
-        // Haetaan kyselyn tuottamat rivit
+
         $rivit = $kysely->fetchAll();
         $alueet = array();
 

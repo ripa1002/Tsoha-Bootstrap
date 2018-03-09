@@ -75,11 +75,3 @@ $routes->post('/aiheet/:id/destroy', function($id) {
     KetjuKontrolleri::destroy($id);
 });
 
-/*
-$routes->get('/hiekkalaatikko', function() {
-    AlueKontrolleri::sandbox();
-});
-$routes->get('/kirjaudu', function() {
-    HelloWorldController::kirjaudu();
-});
-*/

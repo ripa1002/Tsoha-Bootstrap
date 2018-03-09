@@ -4,7 +4,7 @@ class ViestiKontrolleri extends BaseController {
     
     public static function luoViesti($id) {
         $ketju = Ketju::etsi($id);
-        View::make('ketju/uusiviesti.html', array('oikee' => $ketju->id));
+        View::make('viesti/uusiviesti.html', array('oikee' => $ketju->id));
     }
     
     public static function varastoiViesti($id) {
@@ -20,7 +20,7 @@ class ViestiKontrolleri extends BaseController {
         $errors = $viesti->errors();
         
         if (count($errors) > 0) {
-            View::make('ketju/uusiviesti.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $id));
+            View::make('viesti/uusiviesti.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $id));
         } else {
             $viesti->save();
             Redirect::to('/aiheet/ketju/' . $id);
@@ -36,7 +36,7 @@ class ViestiKontrolleri extends BaseController {
     
     public static function editViesti($id) {
         $viesti = Viesti::etsi($id);
-        View::make('suunnitelmat/muokkaaviestia.html', array('attributes' => $viesti, 'oikee' => $viesti->id));
+        View::make('viesti/muokkaaviestia.html', array('attributes' => $viesti, 'oikee' => $viesti->id));
     }
     
     public static function updateViesti($viesti_id) {
@@ -52,7 +52,7 @@ class ViestiKontrolleri extends BaseController {
         $errors = $viesti->errors();
 
         if (count($errors) > 0) {
-            View::make('suunnitelmat/muokkaaviestia.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $viesti->id));
+            View::make('viesti/muokkaaviestia.html', array('errors' => $errors, 'attributes' => $attributes, 'oikee' => $viesti->id));
         } else {
             $viesti->update();
             Redirect::to('/aiheet/ketju/' . $oikee->ketju_id, array('message' => 'Viestiä on muokattu onnistuneesti!'));
