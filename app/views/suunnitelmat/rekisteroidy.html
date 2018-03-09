@@ -1,33 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Rekisteröityminen</h1>
+<h1>Rekisteröityminen</h1>
 
-  <!-- Kaikki lomakkeen elementit form-tagin sisään -->
-  <form>
-    <!-- Tekstikenttä käyttäjätunnukselle -->
+{% if message %}
+<div class="alert alert-danger">
+    <p>{{message}}</p>
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/register">
     <div class="form-group">
-      <label>Käyttäjätunnus</label>
-      <input class="form-control" type="text">
-    </div>
-    
-    <!-- Tekstikenttä sähköpostiosoitteelle -->
-    <div class="form-group">
-      <label>Sähköpostiosoitteesi</label>
-      <input class="form-control" type="text">
+        <label>Käyttäjätunnus</label>
+        <input name="name" class="form-control" type="text">
     </div>
 
-    <!-- Salasanakenttä salasanalle -->
     <div class="form-group">
-      <label>Salasana</label>
-      <input class="form-control" type="password">
+        <label>Salasana</label>
+        <input name="password" class="form-control" type="text">
     </div>
     
-    <!-- Salasanan vahvistus -->
     <div class="form-group">
-      <label>Vahvista salasana</label>
-      <input class="form-control" type="password">
+        <label>Salasanan vahvistus</label>
+        <input name="password_confirm" class="form-control" type="text">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+</form>
+
+<!-- Kaikki lomakkeen elementit form-tagin sisään 
+<form>
+    <div class="form-group">
+        <label>Käyttäjätunnus</label>
+        <input class="form-control" type="text">
+    </div>
+
+    <div class="form-group">
+        <label>Salasana</label>
+        <input class="form-control" type="password">
+    </div>
+
+    <div class="form-group">
+        <label>Vahvista salasana</label>
+        <input class="form-control" type="password">
     </div>
 
     <button type="submit" class="btn btn-primary">Rekisteröidy</button>
-  </form>
+</form>-->
 {% endblock %}

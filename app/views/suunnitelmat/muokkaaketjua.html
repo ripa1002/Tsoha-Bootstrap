@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Muokkaa Viestiä</h1>
+  <h1>Muokkaa Ketjua</h1>
   {% if errors %}
     <div class="alert alert-danger">
       <ul>
@@ -10,10 +10,10 @@
       </ul>
     </div>
   {% endif %}
-<form method="post" action="{{base_path}}/aiheet/ketju/{{oikee}}/muokkaa">
+<form method="post" action="{{base_path}}/aiheet/{{oikee}}/muokkaa">
     <div class="form-group">
-      <label>Viesti</label>
-      <input name="sisalto" class="form-control" type="text">
+      <label>Nimi</label>
+      <input name="name" class="form-control" type="text">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Tallenna muutokset</button>

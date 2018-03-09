@@ -59,6 +59,26 @@ class Viesti extends BaseModel {
         $this->id = $rivi['id'];
     }
     
+    public function update() {
+        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
+        $kysely = DB::connection()->prepare('UPDATE Viesti SET sisalto = :sisalto WHERE id = :id');
+        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
+        $kysely->execute(array('id' => $this->id, 'sisalto' => $this->sisalto));
+        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
+        /*
+        $rivi = $kysely->fetch();
+        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
+        $this->id = $rivi['id'];*/
+    }
+    
+    public function validate_name() {
+        $errors = array();
+        if ($this->sisalto == '' || $this->sisalto == null) {
+            $errors[] = 'Viesti ei saa olla tyhjä!';
+        }
+        return $errors;
+    }
+    
     public function destroyOne() {
         $kysely = DB::connection()->prepare('DELETE FROM Viesti WHERE id=:id');
         $kysely->execute(array('id' => $this->id));

@@ -24,6 +24,28 @@ class Kayttaja extends BaseModel {
         }
     }
     
+    public function validate_name() {
+        $errors = array();
+        if ($this->name == '' || $this->name == null) {
+            $errors[] = 'Nimi ei saa olla tyhjä!';
+        }
+        if (strlen($this->name) < 4) {
+            $errors[] = 'Nimen pituuden tulee olla vähintään neljä merkkiä!';
+        }
+        return $errors;
+    }
+    
+    public function save() {
+        // Lisätään RETURNING id tietokantakyselymme loppuun, niin saamme lisätyn rivin id-sarakkeen arvon
+        $kysely = DB::connection()->prepare('INSERT INTO Kayttaja (name, password) VALUES (:name, :password) RETURNING id');
+        // Muistathan, että olion attribuuttiin pääse syntaksilla $this->attribuutin_nimi
+        $kysely->execute(array('name' => $this->name, 'password' => $this->password));
+        // Haetaan kyselyn tuottama rivi, joka sisältää lisätyn rivin id-sarakkeen arvon
+        $rivi = $kysely->fetch();
+        // Asetetaan lisätyn rivin id-sarakkeen arvo oliomme id-attribuutin arvoksi
+        $this->id = $rivi['id'];
+    }
+    
     public static function etsi($id) {
         $kysely = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
         $kysely->execute(array('id' => $id));

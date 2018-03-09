@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Kirjaudu sisään</h1>
+
+{% if error %}
 <div class="alert alert-danger">
    <p>{{error}}</p>
 </div>
+{% endif %}
 
-<!-- Kaikki lomakkeen elementit form-tagin sisään<p>{{error}}</p> -->
 <form method="post" action="{{base_path}}/login">
-    <!-- Tekstikenttä käyttäjätunnukselle -->
     <div class="form-group">
         <label>Käyttäjätunnus</label>
         <input name="name" class="form-control" type="text">
     </div>
 
-    <!-- Salasanakenttä salasanalle -->
     <div class="form-group">
         <label>Salasana</label>
         <input name="password" class="form-control" type="text">

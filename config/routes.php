@@ -9,12 +9,10 @@ $routes->get('/aiheet', function() {
 });
 
 $routes->get('/login', function() {
-    // Kirjautumislomakkeen esittäminen
     Kayttajakontrolleri::login();
 });
 
 $routes->post('/login', function() {
-    // Kirjautumisen käsittely
     Kayttajakontrolleri::handle_login();
 });
 
@@ -23,46 +21,58 @@ $routes->post('/logout', function() {
 });
 
 $routes->post('/aiheet/:id', function($id) {
-    AlueKontrolleri::varastoi($id);
+    KetjuKontrolleri::varastoi($id);
 });
 
 $routes->get('/aiheet/:id/uusi', function($id) {
-    AlueKontrolleri::luo($id);
+    KetjuKontrolleri::luo($id);
 });
 
 $routes->get('/aiheet/:id', function($id) {
-    AlueKontrolleri::naytaKetjutAlueittain($id);
+    KetjuKontrolleri::naytaKetjutAlueittain($id);
 });
 
 $routes->post('/aiheet/ketju/:id', function($id) {
-    AlueKontrolleri::varastoiViesti($id);
+    ViestiKontrolleri::varastoiViesti($id);
 });
 
 $routes->get('/aiheet/ketju/:id/uusi', function($id) {
-    AlueKontrolleri::luoViesti($id);
+    ViestiKontrolleri::luoViesti($id);
 });
 
 $routes->get('/aiheet/ketju/:ketju_id', function($ketju_id) {
-    AlueKontrolleri::naytaKetjunSisalto($ketju_id);
+    KetjuKontrolleri::naytaKetjunSisalto($ketju_id);
 });
 
-$routes->get('/rekisteroidy', function() {
-    HelloWorldController::rekisteroidy();
+$routes->get('/register', function() {
+    Kayttajakontrolleri::register();
+});
+
+$routes->post('/register', function() {
+    Kayttajakontrolleri::create_user();
 });
 
 $routes->post('/aiheet/:ketju_id/muokkaa', function($ketju_id) {
-    AlueKontrolleri::update($ketju_id);
+    KetjuKontrolleri::update($ketju_id);
 });
 
 $routes->get('/aiheet/:ketju_id/muokkaa', function($ketju_id) {
-    AlueKontrolleri::edit($ketju_id);
+    KetjuKontrolleri::edit($ketju_id);
+});
+
+$routes->post('/aiheet/ketju/:ketju_id/muokkaa', function($ketju_id) {
+    ViestiKontrolleri::updateViesti($ketju_id);
+});
+
+$routes->get('/aiheet/ketju/:ketju_id/muokkaa', function($ketju_id) {
+    ViestiKontrolleri::editViesti($ketju_id);
 });
 
 $routes->post('/aiheet/ketju/:viestiId/destroy', function($viestiId) {
-    AlueKontrolleri::destroyViesti($viestiId);
+    ViestiKontrolleri::destroyViesti($viestiId);
 });
 $routes->post('/aiheet/:id/destroy', function($id) {
-    AlueKontrolleri::destroy($id);
+    KetjuKontrolleri::destroy($id);
 });
 
 /*
